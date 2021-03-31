@@ -1,0 +1,34 @@
+<dx-data-grid
+    id="grid"
+    [dataSource]="dataSource"  
+    [repaintChangesOnly]="true"
+    [showBorders]="true">
+
+    <dxo-scrolling mode="virtual"></dxo-scrolling>
+    <dxo-editing
+        mode="cell"
+        [refreshMode]="refreshMode"
+        [allowAdding]="true"
+        [allowUpdating]="true"
+        [allowDeleting]="true">
+    </dxo-editing>
+    <dxi-column dataField="cantidad"></dxi-column>
+    <dxi-column dataField="fk_id_producto" caption="Productos" >
+      
+    </dxi-column>
+    <dxi-column dataField="fk_id_factura"></dxi-column>
+    
+
+    <dxo-summary>
+        <dxi-total-item
+            column="pk_id_detallefactura"
+            summaryType="count">
+        </dxi-total-item>
+        <dxi-total-item
+            column="cantidad"
+            summaryType="sum"
+            valueFormat="#0.00">
+        </dxi-total-item>
+    </dxo-summary>
+</dx-data-grid>
+

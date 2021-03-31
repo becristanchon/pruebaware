@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OpheliaFacturacionModelStoreContainer" CdmEntityContainer="OpheliaFacturacionEntities">
+    <EntitySetMapping Name="c_categoria_productos">
+      <EntityTypeMapping TypeName="OpheliaFacturacionModel.c_categoria_productos">
+        <MappingFragment StoreEntitySet="c_categoria_productos">
+          <ScalarProperty Name="pk_id_categoria" ColumnName="pk_id_categoria" />
+          <ScalarProperty Name="v_nombre" ColumnName="v_nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="c_tipo_documento">
+      <EntityTypeMapping TypeName="OpheliaFacturacionModel.c_tipo_documento">
+        <MappingFragment StoreEntitySet="c_tipo_documento">
+          <ScalarProperty Name="pk_id_tipodocumento" ColumnName="pk_id_tipodocumento" />
+          <ScalarProperty Name="v_tipo" ColumnName="v_tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="p_detalle_factura">
+      <EntityTypeMapping TypeName="OpheliaFacturacionModel.p_detalle_factura">
+        <MappingFragment StoreEntitySet="p_detalle_factura">
+          <ScalarProperty Name="pk_id_detallefactura" ColumnName="pk_id_detallefactura" />
+          <ScalarProperty Name="fk_id_producto" ColumnName="fk_id_producto" />
+          <ScalarProperty Name="fk_id_factura" ColumnName="fk_id_factura" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="p_facturas">
+      <EntityTypeMapping TypeName="OpheliaFacturacionModel.p_facturas">
+        <MappingFragment StoreEntitySet="p_facturas">
+          <ScalarProperty Name="pk_id_factura" ColumnName="pk_id_factura" />
+          <ScalarProperty Name="fk_id_cliente" ColumnName="fk_id_cliente" />
+          <ScalarProperty Name="v_valor_total" ColumnName="v_valor_total" />
+          <ScalarProperty Name="d_fecha_compra" ColumnName="d_fecha_compra" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="p_persona">
+      <EntityTypeMapping TypeName="OpheliaFacturacionModel.p_persona">
+        <MappingFragment StoreEntitySet="p_persona">
+          <ScalarProperty Name="pk_id_persona" ColumnName="pk_id_persona" />
+          <ScalarProperty Name="fk_id_tipodoc" ColumnName="fk_id_tipodoc" />
+          <ScalarProperty Name="v_numero_documento" ColumnName="v_numero_documento" />
+          <ScalarProperty Name="v_nombre" ColumnName="v_nombre" />
+          <ScalarProperty Name="v_razon_social" ColumnName="v_razon_social" />
+          <ScalarProperty Name="d_fecha_nacimiento" ColumnName="d_fecha_nacimiento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="p_productos">
+      <EntityTypeMapping TypeName="OpheliaFacturacionModel.p_productos">
+        <MappingFragment StoreEntitySet="p_productos">
+          <ScalarProperty Name="pk_id_producto" ColumnName="pk_id_producto" />
+          <ScalarProperty Name="v_nombre" ColumnName="v_nombre" />
+          <ScalarProperty Name="fk_id_categoria" ColumnName="fk_id_categoria" />
+          <ScalarProperty Name="v_precio" ColumnName="v_precio" />
+          <ScalarProperty Name="numero_stock" ColumnName="numero_stock" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

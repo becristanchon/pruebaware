@@ -1,0 +1,5 @@
+<dx-data-grid id="gridContainer"
+    dataSource="https://localhost:44398/api/productos"
+    [columns]="['pk_id_producto', 'v_nombre', 'c_categoria_productos.v_nombre', 'v_precio', 'numero_stock']"
+    [showBorders]="true">
+</dx-data-grid>

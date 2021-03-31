@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OpheliaFacturacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="c_categoria_productos">
+    <Key>
+      <PropertyRef Name="pk_id_categoria" />
+    </Key>
+    <Property Name="pk_id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="v_nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="p_productos" Relationship="Self.FK_Productos_Categorias" FromRole="c_categoria_productos" ToRole="p_productos" />
+  </EntityType>
+  <EntityType Name="c_tipo_documento">
+    <Key>
+      <PropertyRef Name="pk_id_tipodocumento" />
+    </Key>
+    <Property Name="pk_id_tipodocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="v_tipo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="p_persona" Relationship="Self.FK_Persona_tipodoc" FromRole="c_tipo_documento" ToRole="p_persona" />
+  </EntityType>
+  <EntityType Name="p_detalle_factura">
+    <Key>
+      <PropertyRef Name="pk_id_detallefactura" />
+    </Key>
+    <Property Name="pk_id_detallefactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fk_id_producto" Type="Int32" />
+    <Property Name="fk_id_factura" Type="Int32" />
+    <Property Name="cantidad" Type="Int32" />
+    <NavigationProperty Name="p_facturas" Relationship="Self.FK_deatallefacturas_factura" FromRole="p_detalle_factura" ToRole="p_facturas" />
+    <NavigationProperty Name="p_productos" Relationship="Self.FK_detalledactura_producto" FromRole="p_detalle_factura" ToRole="p_productos" />
+  </EntityType>
+  <EntityType Name="p_facturas">
+    <Key>
+      <PropertyRef Name="pk_id_factura" />
+    </Key>
+    <Property Name="pk_id_factura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fk_id_cliente" Type="Int32" />
+    <Property Name="v_valor_total" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="d_fecha_compra" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="p_detalle_factura" Relationship="Self.FK_deatallefacturas_factura" FromRole="p_facturas" ToRole="p_detalle_factura" />
+    <NavigationProperty Name="p_persona" Relationship="Self.FK_facturas_clientes" FromRole="p_facturas" ToRole="p_persona" />
+  </EntityType>
+  <EntityType Name="p_persona">
+    <Key>
+      <PropertyRef Name="pk_id_persona" />
+    </Key>
+    <Property Name="pk_id_persona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fk_id_tipodoc" Type="Int32" />
+    <Property Name="v_numero_documento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="v_nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="v_razon_social" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="d_fecha_nacimiento" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="c_tipo_documento" Relationship="Self.FK_Persona_tipodoc" FromRole="p_persona" ToRole="c_tipo_documento" />
+    <NavigationProperty Name="p_facturas" Relationship="Self.FK_facturas_clientes" FromRole="p_persona" ToRole="p_facturas" />
+  </EntityType>
+  <EntityType Name="p_productos">
+    <Key>
+      <PropertyRef Name="pk_id_producto" />
+    </Key>
+    <Property Name="pk_id_producto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="v_nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="fk_id_categoria" Type="Int32" />
+    <Property Name="v_precio" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="numero_stock" Type="Int32" />
+    <NavigationProperty Name="c_categoria_productos" Relationship="Self.FK_Productos_Categorias" FromRole="p_productos" ToRole="c_categoria_productos" />
+    <NavigationProperty Name="p_detalle_factura" Relationship="Self.FK_detalledactura_producto" FromRole="p_productos" ToRole="p_detalle_factura" />
+  </EntityType>
+  <Association Name="FK_Productos_Categorias">
+    <End Role="c_categoria_productos" Type="Self.c_categoria_productos" Multiplicity="0..1" />
+    <End Role="p_productos" Type="Self.p_productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="c_categoria_productos">
+        <PropertyRef Name="pk_id_categoria" />
+      </Principal>
+      <Dependent Role="p_productos">
+        <PropertyRef Name="fk_id_categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Persona_tipodoc">
+    <End Role="c_tipo_documento" Type="Self.c_tipo_documento" Multiplicity="0..1" />
+    <End Role="p_persona" Type="Self.p_persona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="c_tipo_documento">
+        <PropertyRef Name="pk_id_tipodocumento" />
+      </Principal>
+      <Dependent Role="p_persona">
+        <PropertyRef Name="fk_id_tipodoc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_deatallefacturas_factura">
+    <End Role="p_facturas" Type="Self.p_facturas" Multiplicity="0..1" />
+    <End Role="p_detalle_factura" Type="Self.p_detalle_factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="p_facturas">
+        <PropertyRef Name="pk_id_factura" />
+      </Principal>
+      <Dependent Role="p_detalle_factura">
+        <PropertyRef Name="fk_id_factura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detalledactura_producto">
+    <End Role="p_productos" Type="Self.p_productos" Multiplicity="0..1" />
+    <End Role="p_detalle_factura" Type="Self.p_detalle_factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="p_productos">
+        <PropertyRef Name="pk_id_producto" />
+      </Principal>
+      <Dependent Role="p_detalle_factura">
+        <PropertyRef Name="fk_id_producto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_facturas_clientes">
+    <End Role="p_persona" Type="Self.p_persona" Multiplicity="0..1" />
+    <End Role="p_facturas" Type="Self.p_facturas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="p_persona">
+        <PropertyRef Name="pk_id_persona" />
+      </Principal>
+      <Dependent Role="p_facturas">
+        <PropertyRef Name="fk_id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OpheliaFacturacionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="c_categoria_productos" EntityType="Self.c_categoria_productos" />
+    <EntitySet Name="c_tipo_documento" EntityType="Self.c_tipo_documento" />
+    <EntitySet Name="p_detalle_factura" EntityType="Self.p_detalle_factura" />
+    <EntitySet Name="p_facturas" EntityType="Self.p_facturas" />
+    <EntitySet Name="p_persona" EntityType="Self.p_persona" />
+    <EntitySet Name="p_productos" EntityType="Self.p_productos" />
+    <AssociationSet Name="FK_Productos_Categorias" Association="Self.FK_Productos_Categorias">
+      <End Role="c_categoria_productos" EntitySet="c_categoria_productos" />
+      <End Role="p_productos" EntitySet="p_productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Persona_tipodoc" Association="Self.FK_Persona_tipodoc">
+      <End Role="c_tipo_documento" EntitySet="c_tipo_documento" />
+      <End Role="p_persona" EntitySet="p_persona" />
+    </AssociationSet>
+    <AssociationSet Name="FK_deatallefacturas_factura" Association="Self.FK_deatallefacturas_factura">
+      <End Role="p_facturas" EntitySet="p_facturas" />
+      <End Role="p_detalle_factura" EntitySet="p_detalle_factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detalledactura_producto" Association="Self.FK_detalledactura_producto">
+      <End Role="p_productos" EntitySet="p_productos" />
+      <End Role="p_detalle_factura" EntitySet="p_detalle_factura" />
+    </AssociationSet>
+    <AssociationSet Name="FK_facturas_clientes" Association="Self.FK_facturas_clientes">
+      <End Role="p_persona" EntitySet="p_persona" />
+      <End Role="p_facturas" EntitySet="p_facturas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
